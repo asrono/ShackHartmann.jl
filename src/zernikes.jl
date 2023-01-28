@@ -21,3 +21,15 @@ function R(r::Real; n::Int,m::Int)::Float64
 
     return output
 end
+
+function Z(r::Real, theta::Real; n::Int, m::Int)::Float64
+    if m >= 0
+        output = R.(r; n=n, m=m).*cos(m*theta)
+    else
+        output = R.(r; n=n, m=-m).*sin(-m*theta)
+    end
+    return output
+end
+
+# to do:
+# 1. switch between single and double index

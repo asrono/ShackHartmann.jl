@@ -13,5 +13,12 @@ using Test
     @test ShackHartmann.R(1; n=3, m=3) == 1.0
     @test ShackHartmann.R(0; n=2, m=0) == -1.0
 
-    @test ShackHartmann.R.([0., 1.0];  n=0, m=0) = [1.0, 1.0]
+    @test ShackHartmann.R.([0., 1.0];  n=0, m=0) == [1.0, 1.0]
+end
+
+@testset "Zernike radial function" begin
+    @test ShackHartmann.Z(1, 0; n=0, m=0) == 1.0
+    @test ShackHartmann.Z(1, 0; n=1, m=-1) == 0.0
+    @test ShackHartmann.Z(1, π/2; n=1, m=-1) == 1.0
+
 end
