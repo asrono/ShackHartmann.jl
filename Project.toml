@@ -1,6 +1,6 @@
 name = "ShackHartmann"
-uuid = "f13b44ee-77ff-418c-b5b8-116b9ea27d23"
-authors = ["asrono <nielsbuijssen@hotmail.com> and contributors"]
+uuid = "b2501350-b4fd-450f-a70e-873adaa759d3"
+authors = ["asrono <nielsbuijssen@hotmail.com>"]
 version = "0.1.0"
 
 [compat]
