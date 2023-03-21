@@ -41,11 +41,11 @@ function single2double_index(j)::Tuple{Int, Int}
     return (n,m)
 end
 
-function W(C::Vector{Float64}, r::Float64, theta::Float64)::Float64
+function W(r::Float64, theta::Float64, c::Vector{Float64},)::Float64
     output = 0.0
-    for i = 0:(length(C)-1)
+    for i = 0:(length(c)-1)
         (n,m) = single2double_index(i)
-        output += C[i+1]*Z(r, theta; n, m)
+        output += c[i+1]*Z(r, theta; n, m)
     end
     return output
 end
