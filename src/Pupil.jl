@@ -1,20 +1,35 @@
-using PlotlyJS
+using Plots
 struct Pupil
     x::Vector{Real}
     y::Vector{Real}
-    wavefront::Matrix{Complex}
+    field::Matrix{ComplexF64}
 end
 
 Pupil() = Pupil(Vector{Real}(), Vector{Real}(), Matrix{Complex}([;;]))
 
 function plot_pupil(P::Pupil)
-    s1 = heatmap(z = abs.(P.wavefront)^2, x=P.x, y=P.y)
-    l1 = Layout(title="Abs(Pupil)^2")
-    p1 = plot(s1,l1)
+    p1 = heatmap(P.x, P.y, log.(abs.(P.field).^2), aspect_ratio=:equal)
+    title!(p1, "Intensity")
+    xaxis!("x (m)")
+    yaxis!("y (m)")
 
-    s2 = heatmap(z = angle.(P.wavefront), x=P.x, y=P.y)
-    l2 = Layout(title="Phase(Pupil)^2")
-    p2 = plot(s2,l2)
+    p2 = heatmap(P.x, P.y, angle.(P.field), aspect_ratio=:equal, colorbar_ticks=([0:π/2:2*π]))
+    title!(p2, "Phase")
+    xaxis!("x (m)")
+    yaxis!("y (m)")
 
-    return [p1; p2]
+    p = plot(p1, p2, size=(1200,1000))
+    return p
+end
+
+function example_pupil(r::Real = 0.1, n::Int = 16)::Pupil
+    x = range(-r, r, n)
+    y = range(-r, r, n)
+    rad = sqrt.(x.^2 .+ y'.^2)
+    theta = atan.(y, x)
+    c = [0., 0., 0., 1.]
+    wavefront = W.(rad, theta', (c,))
+    mask = (rad .<= 0.03)
+    P = Pupil(x, y, mask.*exp.(2*pi*1im .*wavefront))
+    return P
 end
