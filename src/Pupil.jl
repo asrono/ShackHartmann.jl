@@ -8,7 +8,7 @@ end
 Pupil() = Pupil(Vector{Real}(), Vector{Real}(), Matrix{Complex}([;;]))
 
 function plot_pupil(P::Pupil)
-    p1 = heatmap(P.x*1e6, P.y*1e6, (abs.(P.field).^2), aspect_ratio=:equal)
+    p1 = heatmap(P.x*1e6, P.y*1e6, log.(abs.(P.field).^2), aspect_ratio=:equal)
     title!(p1, "Intensity")
     xaxis!("x (micron)")
     yaxis!("y (micron)")

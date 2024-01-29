@@ -14,24 +14,19 @@ System() = System(Pupil(), Pupil(), 1. , 1., 1., 1)
 function example_system()
     d = 150e-6 # m
     f = 150e-6 # m
-    Nx = 2^9
+    Nx = 2^8
     lambda = 100e-8 # m
 
-    alphax = 0 # degrees
-    alphay = atan(0.5)*180/pi # degrees
+    alphax = 20 # degrees
+    alphay = 10 # atan(0.57)*180/pi # degrees
 
     dx = lambda*f/d
     x = (-Nx/2:Nx/2-1).*dx
     y = x
     r = sqrt.(x.^2 .+ y'.^2)
     mask = (r .<= d/2)
-    # wavefront = mask.*exp.(1im*2*pi/lambda.*(sin(alphax*pi/180).*x.+sin(alphay*pi/180).*y'));
-    theta = atan.(y,x)
+    wavefront = mask.*exp.(1im*2*pi/lambda.*(sin(alphax*pi/180).*x.+sin(alphay*pi/180).*y'));
 
-    c = [0., 0., 0., 2000/lambda]
-    wavefront2 = W.(r,theta', (c,))
-
-    wavefront = mask.*exp.(1im*2*pi/lambda.*wavefront2);
     p_initial = Pupil(x, y, wavefront)
 
     example_system = System(p_initial, Pupil(), d, f, lambda, Nx)
