@@ -8,15 +8,23 @@ Sensor() = Sensor(Aperture(), Screen())
 function example_sensor()
     s = Sensor(
         Aperture(
-            [SubAperture(
-                (0.,0.),
-                150e-6,
-                150e-6,
-                [],
-                [],
-                Matrix{Complex}([;;])
-            )],
-            200e-6,
+            [
+                SubAperture(
+                    (-100e-6, 0.),
+                    [],
+                    [],
+                    Matrix{Complex}([;;])
+                )
+                ,
+                SubAperture(
+                    (100e-6,0.),
+                    [],
+                    [],
+                    Matrix{Complex}([;;])
+                )
+            ],
+            400e-6,
+            150e-6,
             150e-6,
             [],
             [],

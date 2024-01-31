@@ -6,7 +6,7 @@ export Pupil, plot_pupil, example_pupil
 
 export System, example_system
 
-export Simulation, example_simulation
+export Simulation, example_simulation, initialize!, propagate!, plot
 
 include("zernikes.jl")
 include("Pupil.jl")
